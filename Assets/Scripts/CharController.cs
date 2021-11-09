@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CharController : MonoBehaviour
 {
-    [SerializeField]
-    float moveSpeed = 4f;
+    [SerializeField] float moveSpeed = 4f;
+    [SerializeField] private Rigidbody rb;
 
     Vector3 forward, right;
     // Start is called before the first frame update
@@ -36,5 +36,6 @@ public class CharController : MonoBehaviour
         transform.forward = heading;
         transform.position += rightMovement;
         transform.position += upMovement;
+        rb.MovePosition(transform.position);
     }
 }
