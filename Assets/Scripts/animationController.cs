@@ -5,19 +5,22 @@ using UnityEngine;
 public class animationController : MonoBehaviour
 {
     Animator animator;
+    CharController character;
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+        character = GetComponent<CharController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("d") || Input.GetKey("s"))
+        if (character.GetIsWalking())
         {
             animator.SetBool("isWalking", true);
-        } else
+        }
+        else
         {
             animator.SetBool("isWalking", false);
         }

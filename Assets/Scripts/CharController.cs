@@ -8,10 +8,11 @@ public class CharController : MonoBehaviour
     float moveSpeed = 4f;
 
     Vector3 forward, right;
+    private bool isWalking = false;
     // Start is called before the first frame update
     void Start()
     {
-        forward = Camera.main.transform.position;
+        forward = Camera.main.transform.forward;
         forward.y = 0;
         forward = Vector3.Normalize(forward);
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
@@ -21,20 +22,24 @@ public class CharController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.anyKey)
-            Move();
+
     }
 
-    void Move()
+    public void Move(Vector2 movement)
     {
-        Vector3 direction = new Vector3(Input.GetAxis("HorizontalKey"), 0, Input.GetAxis("VerticalKey"));
-        Vector3 rightMovement = right * moveSpeed * Time.deltaTime * Input.GetAxis("HorizontalKey");
-        Vector3 upMovement = forward * moveSpeed * Time.deltaTime * Input.GetAxis("VerticalKey");
 
+
+        Vector3 rightMovement = right * Time.deltaTime * moveSpeed * (movement.x);
+        Vector3 upMovement = forward * Time.deltaTime * moveSpeed * (movement.y);
         Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
 
         transform.forward = heading;
         transform.position += rightMovement;
         transform.position += upMovement;
     }
+
+
+
+    public void SetIsWalking(bool value) { isWalking = value; }
+    public bool GetIsWalking() { return isWalking; }
 }
