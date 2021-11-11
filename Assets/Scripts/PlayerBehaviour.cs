@@ -13,6 +13,8 @@ public class PlayerBehaviour : MonoBehaviour
     private CharController character;
 
     private bool isWalking = false;
+    private bool isSprinting = false;
+    private bool isCrouched = false;
 
     private void Awake()
     {
@@ -20,6 +22,12 @@ public class PlayerBehaviour : MonoBehaviour
         playerControls = new InputHandler();
         playerControls.Player.Movement.started += _ => StartMovement();
         playerControls.Player.Movement.canceled += _ => CancelMovement();
+
+        playerControls.Player.SprintPressed.performed += _ => SprintPressed();
+        playerControls.Player.SprintReleased.performed += _ => SprintReleased();
+
+        playerControls.Player.CrouchPressed.performed += _ => CrouchPressed();
+        playerControls.Player.CrouchReleased.performed += _ => CrouchReleased();
 
     }
 
@@ -39,7 +47,7 @@ public class PlayerBehaviour : MonoBehaviour
     }
     private void Update()
     {
-        if (this.isWalking == true)
+        if (this.isWalking)
         {
             character.Move(playerControls.Player.Movement.ReadValue<Vector2>());
         }
@@ -55,6 +63,27 @@ public class PlayerBehaviour : MonoBehaviour
     {
         isWalking = false;
         character.SetIsWalking(false);
+    }
+
+    private void SprintPressed()
+    {
+        isSprinting = true;
+        character.SetIsRunning(true);
+    }
+    private void SprintReleased()
+    {
+        isSprinting = false;
+        character.SetIsRunning(false);
+    }
+    private void CrouchPressed()
+    {
+        isCrouched = true;
+        character.SetIsCrouching(true);
+    }
+    private void CrouchReleased()
+    {
+        isCrouched = false;
+        character.SetIsCrouching(false);
     }
 
 }
