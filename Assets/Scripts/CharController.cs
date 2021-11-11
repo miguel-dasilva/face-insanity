@@ -4,14 +4,25 @@ using UnityEngine;
 
 public class CharController : MonoBehaviour
 {
-    [SerializeField]
-    float moveSpeed = 4f;
+    [SerializeField] float moveSpeed = 0.0f;
+    [SerializeField] public Rigidbody rb;
 
     Vector3 forward, right;
+    private bool isWalking = false;
+    private float acceleration = 4.0f;
+    private float deceleration = 3.0f;
+    private float maxSpeed = 3.5f;
+
+    private bool isRunning = false;
+    private float runSpeed = 6.0f;
+
+    private bool isCrouched = false;
+    private float crouchHeight = 1.25f;
+    private float crouchSpeed = 2.0f;
     // Start is called before the first frame update
     void Start()
     {
-        forward = Camera.main.transform.position;
+        forward = Camera.main.transform.forward;
         forward.y = 0;
         forward = Vector3.Normalize(forward);
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
@@ -21,20 +32,67 @@ public class CharController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.anyKey)
-            Move();
+        if (this.isWalking && moveSpeed < maxSpeed)
+        {
+            moveSpeed += Time.deltaTime * acceleration;
+        }
+        if ((!this.isRunning && this.isWalking) && moveSpeed > maxSpeed)
+        {
+            moveSpeed -= Time.deltaTime * deceleration;
+        }
+        if (!this.isWalking && moveSpeed > 0)
+        {
+            moveSpeed -= Time.deltaTime * deceleration;
+        }
+        if (moveSpeed < 0)
+        {
+            moveSpeed = 0;
+        }
     }
 
-    void Move()
+    public void Move(Vector2 movement)
     {
-        Vector3 direction = new Vector3(Input.GetAxis("HorizontalKey"), 0, Input.GetAxis("VerticalKey"));
-        Vector3 rightMovement = right * moveSpeed * Time.deltaTime * Input.GetAxis("HorizontalKey");
-        Vector3 upMovement = forward * moveSpeed * Time.deltaTime * Input.GetAxis("VerticalKey");
 
+
+        Vector3 rightMovement = right * Time.deltaTime * moveSpeed * (movement.x);
+        Vector3 upMovement = forward * Time.deltaTime * moveSpeed * (movement.y);
         Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
 
         transform.forward = heading;
         transform.position += rightMovement;
         transform.position += upMovement;
+        rb.MovePosition(transform.position);
     }
+
+
+
+    public void SetIsWalking(bool value) { isWalking = value; }
+    public bool GetIsWalking() { return isWalking; }
+    public void SetIsRunning(bool value)
+    {
+        if (value)
+        {
+            maxSpeed = runSpeed;
+        }
+        else
+        {
+            maxSpeed = 4f;
+        }
+        isRunning = value;
+    }
+    public bool GetIsRunning() { return isRunning; }
+    public void SetIsCrouching(bool value)
+    {
+        if (value)
+        {
+            maxSpeed = crouchSpeed;
+        }
+        else
+        {
+            maxSpeed = 4f;
+        }
+        isCrouched = value;
+    }
+    public bool GetIsCrouching() { return isCrouched; }
+    public float GetSpeed() { return moveSpeed; }
 }
