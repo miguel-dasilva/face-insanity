@@ -8,6 +8,10 @@ public class CharController : MonoBehaviour
     float moveSpeed = 4f;
 
     Vector3 forward, right;
+
+    private Rigidbody characterBody;
+
+
     private bool isWalking = false;
     // Start is called before the first frame update
     void Start()
@@ -16,6 +20,7 @@ public class CharController : MonoBehaviour
         forward.y = 0;
         forward = Vector3.Normalize(forward);
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
+        characterBody = GetComponent<Rigidbody>();
 
     }
 
