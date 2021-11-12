@@ -30,6 +30,11 @@ public class @InputHandler : IInputActionCollection, IDisposable
                     ""name"": ""Jump"",
                     ""type"": ""Button"",
                     ""id"": ""20c80f2e-df35-4c1a-a804-eec01fcdb910"",
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""b6e813ea-1380-4517-aac3-18e43093130d"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -65,6 +70,14 @@ public class @InputHandler : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Hold""
+                },
+                {
+                    ""name"": ""Continue"",
+                    ""type"": ""Button"",
+                    ""id"": ""4e64f187-8922-4177-878b-ac4ed1131385"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -125,12 +138,12 @@ public class @InputHandler : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""992c1ad0-5d01-43a4-a771-fc7ffefdda86"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""id"": ""8c501cd2-45f0-409b-b2e3-605e36c9c887"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Jump"",
+                    ""groups"": ""keyboard"",
+                    ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -169,12 +182,34 @@ public class @InputHandler : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""d775d4e7-c2ab-4d54-a184-c035842a4be5"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""keyboard"",
+                    ""action"": ""Continue"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""62864f48-1cc1-4a97-b24b-5d6d198e156e"",
                     ""path"": ""<Keyboard>/ctrl"",
                     ""interactions"": ""Press(behavior=1)"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""CrouchReleased"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d07d55bf-24b1-48d7-914c-2e4bf84f9bba"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""keyboard"",
+                    ""action"": ""Continue"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -203,6 +238,8 @@ public class @InputHandler : IInputActionCollection, IDisposable
         m_Player_SprintReleased = m_Player.FindAction("SprintReleased", throwIfNotFound: true);
         m_Player_CrouchPressed = m_Player.FindAction("CrouchPressed", throwIfNotFound: true);
         m_Player_CrouchReleased = m_Player.FindAction("CrouchReleased", throwIfNotFound: true);
+        m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_Continue = m_Player.FindAction("Continue", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -258,6 +295,8 @@ public class @InputHandler : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_SprintReleased;
     private readonly InputAction m_Player_CrouchPressed;
     private readonly InputAction m_Player_CrouchReleased;
+    private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_Continue;
     public struct PlayerActions
     {
         private @InputHandler m_Wrapper;
@@ -268,6 +307,8 @@ public class @InputHandler : IInputActionCollection, IDisposable
         public InputAction @SprintReleased => m_Wrapper.m_Player_SprintReleased;
         public InputAction @CrouchPressed => m_Wrapper.m_Player_CrouchPressed;
         public InputAction @CrouchReleased => m_Wrapper.m_Player_CrouchReleased;
+        public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @Continue => m_Wrapper.m_Player_Continue;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -295,6 +336,12 @@ public class @InputHandler : IInputActionCollection, IDisposable
                 @CrouchReleased.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouchReleased;
                 @CrouchReleased.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouchReleased;
                 @CrouchReleased.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouchReleased;
+                @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @Continue.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnContinue;
+                @Continue.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnContinue;
+                @Continue.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnContinue;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -317,6 +364,12 @@ public class @InputHandler : IInputActionCollection, IDisposable
                 @CrouchReleased.started += instance.OnCrouchReleased;
                 @CrouchReleased.performed += instance.OnCrouchReleased;
                 @CrouchReleased.canceled += instance.OnCrouchReleased;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
+                @Continue.started += instance.OnContinue;
+                @Continue.performed += instance.OnContinue;
+                @Continue.canceled += instance.OnContinue;
             }
         }
     }
@@ -338,5 +391,7 @@ public class @InputHandler : IInputActionCollection, IDisposable
         void OnSprintReleased(InputAction.CallbackContext context);
         void OnCrouchPressed(InputAction.CallbackContext context);
         void OnCrouchReleased(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
+        void OnContinue(InputAction.CallbackContext context);
     }
 }

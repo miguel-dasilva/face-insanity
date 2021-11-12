@@ -8,6 +8,10 @@ public class CharController : MonoBehaviour
     [SerializeField] public Rigidbody rb;
 
     Vector3 forward, right;
+
+    private Rigidbody characterBody;
+
+
     private bool isWalking = false;
     private float acceleration = 4.0f;
     private float deceleration = 3.0f;
@@ -26,6 +30,7 @@ public class CharController : MonoBehaviour
         forward.y = 0;
         forward = Vector3.Normalize(forward);
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
+        characterBody = GetComponent<Rigidbody>();
 
     }
 

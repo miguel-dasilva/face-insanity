@@ -22,6 +22,14 @@
                     "interactions": ""
                 },
                 {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "b6e813ea-1380-4517-aac3-18e43093130d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "SprintPressed",
                     "type": "Button",
                     "id": "5f196ed1-8379-4c55-b102-9819ca2de648",
@@ -52,6 +60,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Hold"
+                },
+                {
+                    "name": "Continue",
+                    "type": "Button",
+                    "id": "4e64f187-8922-4177-878b-ac4ed1131385",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -123,6 +139,17 @@
                 },
                 {
                     "name": "",
+                    "id": "8c501cd2-45f0-409b-b2e3-605e36c9c887",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "keyboard",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "f0a3bcb5-18c3-4cb7-922b-7306ecdba070",
                     "path": "<Keyboard>/shift",
                     "interactions": "Press",
@@ -156,12 +183,34 @@
                 },
                 {
                     "name": "",
+                    "id": "d775d4e7-c2ab-4d54-a184-c035842a4be5",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "keyboard",
+                    "action": "Continue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "62864f48-1cc1-4a97-b24b-5d6d198e156e",
                     "path": "<Keyboard>/ctrl",
                     "interactions": "Press(behavior=1)",
                     "processors": "",
                     "groups": "",
                     "action": "CrouchReleased",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d07d55bf-24b1-48d7-914c-2e4bf84f9bba",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "keyboard",
+                    "action": "Continue",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -12,9 +12,14 @@ public class PlayerBehaviour : MonoBehaviour
     private InputHandler playerControls;
     private CharController character;
 
+    //input control variables
     private bool isWalking = false;
     private bool isSprinting = false;
     private bool isCrouched = false;
+    private bool interactPressed = false;
+    private bool continuePressed = false;
+
+
 
     private void Awake()
     {
@@ -22,6 +27,12 @@ public class PlayerBehaviour : MonoBehaviour
         playerControls = new InputHandler();
         playerControls.Player.Movement.started += _ => StartMovement();
         playerControls.Player.Movement.canceled += _ => CancelMovement();
+        playerControls.Player.Interact.started += _ => StartInteraction();
+        playerControls.Player.Interact.canceled += _ => EndInteraction();
+        playerControls.Player.Continue.performed += _ => ContinueStarted();
+        playerControls.Player.Continue.canceled += _ => ContinueEnded();
+
+
 
         playerControls.Player.SprintPressed.performed += _ => SprintPressed();
         playerControls.Player.SprintReleased.performed += _ => SprintReleased();
@@ -30,6 +41,7 @@ public class PlayerBehaviour : MonoBehaviour
         playerControls.Player.CrouchReleased.performed += _ => CrouchReleased();
 
     }
+
 
     private void OnEnable()
     {
@@ -55,8 +67,11 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void StartMovement()
     {
-        isWalking = true;
-        character.SetIsWalking(true);
+        if (DialogueManager.GetInstance().dialogueIsPlaying == false)
+        {
+            isWalking = true;
+            character.SetIsWalking(true);
+        }
     }
 
     private void CancelMovement()
@@ -85,6 +100,17 @@ public class PlayerBehaviour : MonoBehaviour
         isCrouched = false;
         character.SetIsCrouching(false);
     }
+    private void StartInteraction() { interactPressed = true; }
+    private void EndInteraction() { interactPressed = false; }
+
+    private void ContinueStarted() { DialogueManager.GetInstance().continuePressed = true; }
+
+    private void ContinueEnded() { DialogueManager.GetInstance().continuePressed = false; }
+
+    public bool GetInteractPressed() { return interactPressed; }
+
+
+
 
 }
 
