@@ -18,7 +18,7 @@ public class CharController : MonoBehaviour
     private float maxSpeed = 3.5f;
 
     private bool isRunning = false;
-    private float runSpeed = 6.0f;
+    private float runSpeed = 8.0f;
 
     private bool isCrouched = false;
     private float crouchHeight = 1.25f;

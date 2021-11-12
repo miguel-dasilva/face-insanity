@@ -123,6 +123,24 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &37650861 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1000010113653518, guid: 83aae98f19433bf44bb2613869ec2b6c, type: 3}
+  m_PrefabInstance: {fileID: 2136238701}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &37650865
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 37650861}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.3996458, y: 0.9985313, z: 0.7500705}
+  m_Center: {x: -1.1996193, y: -0.4711204, z: 0.37496474}
 --- !u!4 &42601260 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4000011518684430, guid: d7b762e2efec15745a46d6a07c9c119e, type: 3}
@@ -566,6 +584,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialoguePanel: {fileID: 978455342}
   dialogueText: {fileID: 967462910}
+  continuePressed: 0
   visualCue: {fileID: 233893414}
   choices:
   - {fileID: 471064448}
@@ -814,6 +833,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 346463311}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &375655770 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1000011419228686, guid: d7b762e2efec15745a46d6a07c9c119e, type: 3}
+  m_PrefabInstance: {fileID: 1832053118}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &375655773
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375655770}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 57.1855, y: 93.316, z: 44.714798}
+  m_Center: {x: 25.218407, y: 46.657986, z: -24.1277}
 --- !u!1 &471064448
 GameObject:
   m_ObjectHideFlags: 0
@@ -1760,6 +1797,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3431dc72647b52b46acebb4021e6968f, type: 3}
+--- !u!1 &1065418090 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1000011419228686, guid: d7b762e2efec15745a46d6a07c9c119e, type: 3}
+  m_PrefabInstance: {fileID: 1904869503}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1065418093
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065418090}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 57.1855, y: 93.316, z: 44.714798}
+  m_Center: {x: 25.218224, y: 46.658, z: -24.127335}
 --- !u!1 &1099449733 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 2d95b5db3b70ed841986da36b672eb5a, type: 3}
@@ -1790,7 +1845,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7caefee765369b446b88bdf02ce810b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4
+  moveSpeed: 0
+  rb: {fileID: 1099449741}
 --- !u!4 &1099449736 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2d95b5db3b70ed841986da36b672eb5a, type: 3}
@@ -1860,6 +1916,30 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: b6e813ea-1380-4517-aac3-18e43093130d
     m_ActionName: Player/Interact[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 20c80f2e-df35-4c1a-a804-eec01fcdb910
+    m_ActionName: Player/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5f196ed1-8379-4c55-b102-9819ca2de648
+    m_ActionName: Player/SprintPressed[/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3f4f04bc-4ee2-4179-8ad0-be369cd8dc28
+    m_ActionName: Player/SprintReleased[/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e28031c2-891b-4e2d-a16e-bb5d4377e6b9
+    m_ActionName: Player/CrouchPressed[/Keyboard/ctrl]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 306760f1-8dc2-4c51-b294-016ea3ab2a21
+    m_ActionName: Player/CrouchReleased[/Keyboard/ctrl]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4e64f187-8922-4177-878b-ac4ed1131385
+    m_ActionName: Player/Continue[/Keyboard/enter,/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: keyboard
   m_DefaultActionMap: Player
@@ -2965,6 +3045,26 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1937628166}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2102727709 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3431dc72647b52b46acebb4021e6968f, type: 3}
+  m_PrefabInstance: {fileID: 1062878547}
+  m_PrefabAsset: {fileID: 0}
+--- !u!111 &2102727710
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102727709}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &2132369487
 GameObject:
   m_ObjectHideFlags: 0

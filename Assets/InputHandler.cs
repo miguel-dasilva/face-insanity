@@ -30,6 +30,9 @@ public class @InputHandler : IInputActionCollection, IDisposable
                     ""name"": ""Jump"",
                     ""type"": ""Button"",
                     ""id"": ""20c80f2e-df35-4c1a-a804-eec01fcdb910"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 },
                 {
                     ""name"": ""Interact"",
@@ -138,6 +141,17 @@ public class @InputHandler : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""992c1ad0-5d01-43a4-a771-fc7ffefdda86"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""8c501cd2-45f0-409b-b2e3-605e36c9c887"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
@@ -234,11 +248,11 @@ public class @InputHandler : IInputActionCollection, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_SprintPressed = m_Player.FindAction("SprintPressed", throwIfNotFound: true);
         m_Player_SprintReleased = m_Player.FindAction("SprintReleased", throwIfNotFound: true);
         m_Player_CrouchPressed = m_Player.FindAction("CrouchPressed", throwIfNotFound: true);
         m_Player_CrouchReleased = m_Player.FindAction("CrouchReleased", throwIfNotFound: true);
-        m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Continue = m_Player.FindAction("Continue", throwIfNotFound: true);
     }
 
@@ -291,11 +305,11 @@ public class @InputHandler : IInputActionCollection, IDisposable
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Jump;
+    private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_SprintPressed;
     private readonly InputAction m_Player_SprintReleased;
     private readonly InputAction m_Player_CrouchPressed;
     private readonly InputAction m_Player_CrouchReleased;
-    private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Continue;
     public struct PlayerActions
     {
@@ -303,11 +317,11 @@ public class @InputHandler : IInputActionCollection, IDisposable
         public PlayerActions(@InputHandler wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
+        public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @SprintPressed => m_Wrapper.m_Player_SprintPressed;
         public InputAction @SprintReleased => m_Wrapper.m_Player_SprintReleased;
         public InputAction @CrouchPressed => m_Wrapper.m_Player_CrouchPressed;
         public InputAction @CrouchReleased => m_Wrapper.m_Player_CrouchReleased;
-        public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @Continue => m_Wrapper.m_Player_Continue;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -324,6 +338,9 @@ public class @InputHandler : IInputActionCollection, IDisposable
                 @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @SprintPressed.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSprintPressed;
                 @SprintPressed.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSprintPressed;
                 @SprintPressed.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSprintPressed;
@@ -336,9 +353,6 @@ public class @InputHandler : IInputActionCollection, IDisposable
                 @CrouchReleased.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouchReleased;
                 @CrouchReleased.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouchReleased;
                 @CrouchReleased.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouchReleased;
-                @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
-                @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
-                @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @Continue.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnContinue;
                 @Continue.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnContinue;
                 @Continue.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnContinue;
@@ -352,6 +366,9 @@ public class @InputHandler : IInputActionCollection, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
                 @SprintPressed.started += instance.OnSprintPressed;
                 @SprintPressed.performed += instance.OnSprintPressed;
                 @SprintPressed.canceled += instance.OnSprintPressed;
@@ -364,9 +381,6 @@ public class @InputHandler : IInputActionCollection, IDisposable
                 @CrouchReleased.started += instance.OnCrouchReleased;
                 @CrouchReleased.performed += instance.OnCrouchReleased;
                 @CrouchReleased.canceled += instance.OnCrouchReleased;
-                @Interact.started += instance.OnInteract;
-                @Interact.performed += instance.OnInteract;
-                @Interact.canceled += instance.OnInteract;
                 @Continue.started += instance.OnContinue;
                 @Continue.performed += instance.OnContinue;
                 @Continue.canceled += instance.OnContinue;
@@ -387,11 +401,11 @@ public class @InputHandler : IInputActionCollection, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
         void OnSprintPressed(InputAction.CallbackContext context);
         void OnSprintReleased(InputAction.CallbackContext context);
         void OnCrouchPressed(InputAction.CallbackContext context);
         void OnCrouchReleased(InputAction.CallbackContext context);
-        void OnInteract(InputAction.CallbackContext context);
         void OnContinue(InputAction.CallbackContext context);
     }
 }
