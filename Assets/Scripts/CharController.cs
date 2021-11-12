@@ -57,8 +57,6 @@ public class CharController : MonoBehaviour
 
     public void Move(Vector2 movement)
     {
-
-
         Vector3 rightMovement = right * Time.deltaTime * moveSpeed * (movement.x);
         Vector3 upMovement = forward * Time.deltaTime * moveSpeed * (movement.y);
         Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
@@ -100,4 +98,9 @@ public class CharController : MonoBehaviour
     }
     public bool GetIsCrouching() { return isCrouched; }
     public float GetSpeed() { return moveSpeed; }
+
+    public void SetPosition(Vector3 snapPosition, Quaternion snapRotation)
+    {
+        transform.SetPositionAndRotation(snapPosition, snapRotation);
+    }
 }

@@ -11,9 +11,14 @@ public class DialogueTrigger : MonoBehaviour
     [Header("Ink JSON")]
     [SerializeField] private TextAsset inkJSON;
 
-    private PlayerBehaviour Player;
+    [Header("Sit Position")]
+    [SerializeField] private Transform sitPosition;
 
+    private PlayerBehaviour Player;
+    private CharController PlayerController;
+    private Rigidbody playerRB;
     private Animator animator;
+    private Animator playerAnim;
 
     bool playerInRange = false;
     bool interactDismissed = false;
@@ -26,8 +31,10 @@ public class DialogueTrigger : MonoBehaviour
     private void Start()
     {
         animator = visualCue.GetComponent<Animator>();
+        playerAnim = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
         Player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBehaviour>();
-
+        PlayerController = GameObject.FindGameObjectWithTag("Player").GetComponent<CharController>();
+        playerRB = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
 
     }
 
@@ -45,6 +52,9 @@ public class DialogueTrigger : MonoBehaviour
             if (Player.GetInteractPressed() == true && interactDismissed == false)
             {
                 animator.SetBool("interactPressed", true);
+                playerRB.isKinematic = true;
+                PlayerController.SetPosition(sitPosition.position, sitPosition.rotation);
+                playerAnim.SetTrigger("Sit");
                 DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
                 interactDismissed = true;
 
