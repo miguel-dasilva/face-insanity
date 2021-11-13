@@ -24,7 +24,7 @@ public class CharController : MonoBehaviour
     private float crouchHeight = 1.25f;
     private float crouchSpeed = 4.0f;
 
-    private Vector3 noMovement;
+    private bool isColliding = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +33,7 @@ public class CharController : MonoBehaviour
         forward = Vector3.Normalize(forward);
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
         characterBody = GetComponent<Rigidbody>();
-        noMovement = new Vector3(0, 0, 0);
+
 
     }
 
@@ -65,6 +65,10 @@ public class CharController : MonoBehaviour
         {
             deceleration = 10.0f;
         }
+        if (isColliding && moveSpeed > 3f)
+        {
+            moveSpeed = 3f;
+        }
 
     }
 
@@ -78,7 +82,6 @@ public class CharController : MonoBehaviour
         transform.forward = heading;
         transform.position += rightMovement;
         transform.position += upMovement;
-        //transform.position += noMovement;
         rb.MovePosition(transform.position);
 
 
@@ -141,17 +144,15 @@ public class CharController : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        ContactPoint[] contacts = new ContactPoint[1];
         if (other.gameObject.tag == "Wall")
         {
-            other.GetContacts(contacts);
-            noMovement = Vector3.Normalize(new Vector3(contacts[0].normal.x, contacts[0].normal.y, contacts[0].normal.z));
+            isColliding = true;
         }
     }
 
     private void OnCollisionExit(Collision other)
     {
         if (other.gameObject.tag == "Wall")
-            noMovement = new Vector3(0, 0, 0);
+            isColliding = false;
     }
 }
