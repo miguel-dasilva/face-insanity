@@ -29,7 +29,7 @@ public class MainStoryScene1 : MonoBehaviour
             {
                 first_mask_received.SetActive(false);
                 //load the next scene, whatever it is... it is not number 2 for sure
-                SceneManager.LoadScene(2, LoadSceneMode.Single);
+                SceneManager.LoadScene(3, LoadSceneMode.Single);
 
             }
         }

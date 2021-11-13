@@ -6,6 +6,10 @@ TagManager:
   tags:
   - InteractCue
   - Boss1
+  - ItemReceivedImage
+  - ItemReceivedText
+  - HackableLights
+  - Wall
   layers:
   - Default
   - TransparentFX

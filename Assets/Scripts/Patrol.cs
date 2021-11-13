@@ -24,7 +24,7 @@ public class Patrol : MonoBehaviour
 
     void GotoNextPoint()
     {
-        Debug.Log("Go to point");
+        //Debug.Log("Go to point");
         // Returns if no points have been set up
         if (points.Length == 0)
             return;

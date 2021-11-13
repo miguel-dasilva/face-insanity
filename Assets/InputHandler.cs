@@ -186,7 +186,7 @@ public class @InputHandler : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""6fa50fad-bf61-42a2-a752-ce2c1fe5050a"",
-                    ""path"": ""<Keyboard>/c"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",
@@ -208,7 +208,7 @@ public class @InputHandler : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""62864f48-1cc1-4a97-b24b-5d6d198e156e"",
-                    ""path"": ""<Keyboard>/c"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": ""Press(behavior=1)"",
                     ""processors"": """",
                     ""groups"": """",

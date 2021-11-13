@@ -13,16 +13,18 @@ public class CharController : MonoBehaviour
 
 
     private bool isWalking = false;
-    private float acceleration = 4.0f;
-    private float deceleration = 3.0f;
-    private float maxSpeed = 3.5f;
+    private float acceleration = 8.0f;
+    private float deceleration = 10.0f;
+    private float maxSpeed = 6.5f;
 
     private bool isRunning = false;
-    private float runSpeed = 8.0f;
+    private float runSpeed = 17.0f;
 
     private bool isCrouched = false;
     private float crouchHeight = 1.25f;
-    private float crouchSpeed = 2.0f;
+    private float crouchSpeed = 4.0f;
+
+    private Vector3 noMovement;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,12 +33,14 @@ public class CharController : MonoBehaviour
         forward = Vector3.Normalize(forward);
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
         characterBody = GetComponent<Rigidbody>();
+        noMovement = new Vector3(0, 0, 0);
 
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (this.isWalking && moveSpeed < maxSpeed)
         {
             moveSpeed += Time.deltaTime * acceleration;
@@ -51,8 +55,17 @@ public class CharController : MonoBehaviour
         }
         if (moveSpeed < 0)
         {
-            moveSpeed = 0;
+            moveSpeed = 0.01f;
         }
+        if (isCrouched)
+        {
+            deceleration = 40.0f;
+        }
+        else
+        {
+            deceleration = 10.0f;
+        }
+
     }
 
     public void Move(Vector2 movement)
@@ -61,10 +74,14 @@ public class CharController : MonoBehaviour
         Vector3 upMovement = forward * Time.deltaTime * moveSpeed * (movement.y);
         Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
 
+
         transform.forward = heading;
         transform.position += rightMovement;
         transform.position += upMovement;
+        //transform.position += noMovement;
         rb.MovePosition(transform.position);
+
+
     }
 
 
@@ -75,13 +92,19 @@ public class CharController : MonoBehaviour
     {
         if (value)
         {
-            maxSpeed = runSpeed;
+            if (isCrouched)
+                StartCoroutine(ChangeAccelarationAfterOtherAction(1f, 8.0f, deceleration, runSpeed));
+            else
+                maxSpeed = runSpeed;
         }
         else
         {
-            maxSpeed = 4f;
+            maxSpeed = 6.5f;
         }
         isRunning = value;
+        if (value)
+            isCrouched = false;
+
     }
     public bool GetIsRunning() { return isRunning; }
     public void SetIsCrouching(bool value)
@@ -92,9 +115,13 @@ public class CharController : MonoBehaviour
         }
         else
         {
-            maxSpeed = 4f;
+            maxSpeed = 0.1f;
+            acceleration = 0.0f;
+            StartCoroutine(ChangeAccelarationAfterOtherAction(0.6f, 8.0f, deceleration, 6.5f));
         }
         isCrouched = value;
+        if (value)
+            isRunning = false;
     }
     public bool GetIsCrouching() { return isCrouched; }
     public float GetSpeed() { return moveSpeed; }
@@ -102,5 +129,29 @@ public class CharController : MonoBehaviour
     public void SetPosition(Vector3 snapPosition, Quaternion snapRotation)
     {
         transform.SetPositionAndRotation(snapPosition, snapRotation);
+    }
+
+    private IEnumerator ChangeAccelarationAfterOtherAction(float time, float accelaratione, float deccelaratione, float max_speed)
+    {
+        yield return new WaitForSecondsRealtime(time);
+        acceleration = accelaratione;
+        maxSpeed = max_speed;
+        deceleration = deccelaratione;
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        ContactPoint[] contacts = new ContactPoint[1];
+        if (other.gameObject.tag == "Wall")
+        {
+            other.GetContacts(contacts);
+            noMovement = Vector3.Normalize(new Vector3(contacts[0].normal.x, contacts[0].normal.y, contacts[0].normal.z));
+        }
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        if (other.gameObject.tag == "Wall")
+            noMovement = new Vector3(0, 0, 0);
     }
 }
