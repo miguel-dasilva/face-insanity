@@ -13,6 +13,8 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI dialogueText;
     private Story currentStory;
     public bool dialogueIsPlaying { get; private set; }
+
+    public int numberOfFinishedDialogueSegments { get; private set; }
     public bool continuePressed;
     private Animator animator;
     [SerializeField] private GameObject visualCue;
@@ -38,6 +40,7 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.SetActive(false);
         animator = visualCue.GetComponent<Animator>();
         choicesText = new TextMeshProUGUI[choices.Length];
+        numberOfFinishedDialogueSegments = 0;
         int ind = 0;
         foreach (GameObject choice in choices)
         {
@@ -108,6 +111,7 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
         dialogueText.text = "";
+        numberOfFinishedDialogueSegments++;
     }
 
     private void DisplayChoices()
@@ -124,6 +128,7 @@ public class DialogueManager : MonoBehaviour
 
         foreach (Choice choice in currentChoices)
         {
+            //Debug.Log(ind + " text:" + choice.text);
             choices[ind].gameObject.SetActive(true);
             choicesText[ind].text = choice.text;
             ind++;
