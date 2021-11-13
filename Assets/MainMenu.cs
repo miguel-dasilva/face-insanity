@@ -7,6 +7,7 @@ public class MainMenu : MonoBehaviour
 {
    public void PlayGame()
     {
+        //FindObjectOfType<AudioManager>().Play("buttonsSound");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 

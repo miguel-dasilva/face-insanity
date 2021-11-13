@@ -8,6 +8,6 @@ public class MainStory : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable()
     {
-        SceneManager.LoadScene(1, LoadSceneMode.Single);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
