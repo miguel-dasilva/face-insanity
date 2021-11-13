@@ -7,16 +7,22 @@ public class Patrol : MonoBehaviour
     public Transform[] points;
     private int destPoint = 0;
     private NavMeshAgent agent;
-
+    private float distanceToPlayer;
+    private GameObject player;
+    private Transform target;
+    public float sight;
+    public float sightAngle;
+    public bool playerSeen;
+    public Light light;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        player = GameObject.FindGameObjectWithTag("Player");
+        target = player.GetComponent<Transform>();
 
-        // Disabling auto-braking allows for continuous movement
-        // between points (ie, the agent doesn't slow down as it
-        // approaches a destination point).
         agent.autoBraking = false;
+        playerSeen = false;
 
         GotoNextPoint();
     }
@@ -24,25 +30,46 @@ public class Patrol : MonoBehaviour
 
     void GotoNextPoint()
     {
-        //Debug.Log("Go to point");
-        // Returns if no points have been set up
         if (points.Length == 0)
             return;
 
-        // Set the agent to go to the currently selected destination.
         agent.destination = points[destPoint].position;
 
-        // Choose the next point in the array as the destination,
-        // cycling to the start if necessary.
         destPoint = (destPoint + 1) % points.Length;
     }
 
 
     void Update()
     {
-        // Choose the next destination point when the agent gets
-        // close to the current one.
+        Vector3 playerPosition = target.position;
+        Vector3 vectorToPlayer = playerPosition - transform.position;
+        distanceToPlayer = Vector3.Distance(playerPosition, transform.position);
+
+        if (playerSeen)
+        {
+            if (distanceToPlayer > sight)
+            {
+                light.color = Color.white;
+                playerSeen = false;
+                agent.destination = points[destPoint].position;
+            }
+            else
+            {
+                light.color = Color.red;
+                agent.transform.LookAt(playerPosition);
+                agent.SetDestination(target.position);
+            }
+
+        }
+        else if (distanceToPlayer <= sight && Vector3.Angle(transform.forward, vectorToPlayer) <= sightAngle) //Player spotted
+        {
+            playerSeen = true;
+        }
+        
         if (!agent.pathPending && agent.remainingDistance < 0.5f)
+        {
             GotoNextPoint();
+        }
+
     }
 }
