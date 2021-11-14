@@ -230,6 +230,7 @@ Transform:
   - {fileID: 866557037}
   - {fileID: 655399950}
   - {fileID: 324745652}
+  - {fileID: 461523689}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2138,6 +2139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   rb: {fileID: 389166275}
+  playerSeen: 0
   isHidden: 0
   hp: 0
   maxHp: 100
@@ -2190,6 +2192,19 @@ Rigidbody:
   m_Interpolate: 2
   m_Constraints: 112
   m_CollisionDetection: 2
+--- !u!114 &389166276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389166267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f3ff953c3277b42b75f10ced57af21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipedMask: {fileID: 461523688}
 --- !u!1 &394889088
 GameObject:
   m_ObjectHideFlags: 0
@@ -2566,6 +2581,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 874238559}
   m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &461523688
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 461523689}
+  m_Layer: 0
+  m_Name: Mask
+  m_TagString: stealthMask
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &461523689
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461523688}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -446.6144, y: -126.29, z: 498.60156}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 28825393}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &462722030
 GameObject:
@@ -6765,7 +6810,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 418677b89831d644cafcd39318964e6a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 98.8
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 418677b89831d644cafcd39318964e6a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7689,7 +7734,7 @@ MonoBehaviour:
   sightAngle: 25
   playerSeen: 0
   light: {fileID: 379697038}
-  enemyHearsPlayerRadius: 10
+  enemyHearsPlayerRadius: 25
 --- !u!195 &1445218088
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -7704,7 +7749,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 3
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
