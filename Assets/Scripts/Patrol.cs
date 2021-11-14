@@ -5,6 +5,8 @@ using System.Collections;
 public class Patrol : MonoBehaviour
 {
     public Transform[] points;
+
+    public float hp = 100;
     private int destPoint = 0;
     private NavMeshAgent agent;
     private float distanceToPlayer;
@@ -31,6 +33,18 @@ public class Patrol : MonoBehaviour
         GotoNextPoint();
     }
 
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "Player" && playerController.isHidden == false)
+        {
+            // function to attack including animation
+            playerController.hp -= 20;
+
+        }
+
+    }
+
+
 
     void GotoNextPoint()
     {
@@ -48,6 +62,10 @@ public class Patrol : MonoBehaviour
         Vector3 playerPosition = target.position;
         Vector3 vectorToPlayer = playerPosition - transform.position;
         distanceToPlayer = Vector3.Distance(playerPosition, transform.position);
+        if (hp <= 0)
+        {
+            Destroy(this);
+        }
 
         if (playerSeen)
         {

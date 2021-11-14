@@ -53,7 +53,6 @@ public class CharController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("IS HIDDEN = " + isHidden);
         if (hp <= 0)
         {
             this.gameObject.transform.SetPositionAndRotation(new Vector3(0, -200, 0), this.gameObject.transform.rotation);
@@ -178,12 +177,9 @@ public class CharController : MonoBehaviour
         {
             isColliding = true;
         }
-        if (other.gameObject.tag == "Boss" && isHidden == false)
-        {
-            //Debug.Log("Here!  =" + other.gameObject.name);
-            hp -= 20;
+        // substituir isto por um script a serio que possa ser replicavel
 
-        }
+        //------------------------------------------------
     }
 
     private void OnCollisionExit(Collision other)

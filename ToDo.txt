@@ -1,0 +1,9 @@
+//to do:
+    // animation for choke
+    // animation for boss attack
+    // fill the room with cooler assets
+    // raycast some whiskers to avoid getting stuck on wall
+    // damage effect for when enemy gets choked (maybe some screen shake?)
+    // quick dialogue for when entering the room
+    // quick dialogue when finishing
+    // a panel on the wall to turn off the lighs and shrink the killers vision radius?
