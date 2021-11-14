@@ -19,7 +19,7 @@ public class Patrol : MonoBehaviour
     public bool playerSeen;
     public Light light;
     public float enemyHearsPlayerRadius;
-
+    public Animator animator;
     private CharController playerController;
 
     void Start()
@@ -55,6 +55,10 @@ public class Patrol : MonoBehaviour
         mRightFist.GetComponent<Collider>().enabled = false;
     }
 
+    public void damaged()
+    {
+        animator.SetTrigger("Damaged");
+    }
     void Update()
     {
         Vector3 playerPosition = target.position;
@@ -79,7 +83,7 @@ public class Patrol : MonoBehaviour
             {
                 if (distanceToPlayer <= attackRange)
                 {
-                    GetComponent<Animator>().SetTrigger("Attack");
+                    animator.SetTrigger("Attack");
                 }
                 else
                 {

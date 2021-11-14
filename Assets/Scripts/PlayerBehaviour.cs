@@ -11,7 +11,7 @@ public class PlayerBehaviour : MonoBehaviour
 {
     private InputHandler playerControls;
     private CharController character;
-
+    public Animator animator;
     //input control variables
     private bool isWalking = false;
     private bool isSprinting = false;
@@ -61,7 +61,7 @@ public class PlayerBehaviour : MonoBehaviour
     }
     private void Update()
     {
-        if (this.isWalking)
+        if (this.isWalking && !animator.GetBool("Attacking"))
         {
             character.Move(playerControls.Player.Movement.ReadValue<Vector2>());
         }

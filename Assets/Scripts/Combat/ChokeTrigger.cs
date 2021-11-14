@@ -17,6 +17,10 @@ public class ChokeTrigger : Trigger
 
     private bool chokeEnabled = true;
 
+    private Animator playerAnim;
+
+    public Transform hitPoint;
+
     protected override void Start()
     {
         base.Start();
@@ -24,6 +28,7 @@ public class ChokeTrigger : Trigger
         enemyScript = enemy.GetComponent<Patrol>();
         chokeDamage = (enemyScript.hp / 3) + 1;
         damageEffect = GetComponent<DamageEffect>();
+        playerAnim = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
 
     }
     protected override void checkForPlayerInteraction()
@@ -45,9 +50,12 @@ public class ChokeTrigger : Trigger
             StartCoroutine(reEnableChoke());
 
         }
-        Debug.Log("ENEMY HP = " + enemyScript.hp);
+        //Debug.Log("ENEMY HP = " + enemyScript.hp);
         //damageEffect.StartDamagedEffect();
-
+        Debug.Log("animation");
+        enemyScript.damaged();
+        PlayerController.transform.rotation = hitPoint.rotation;
+        playerAnim.SetBool("Attacking", true);
         // do animation stuff xD
     }
 
@@ -57,6 +65,7 @@ public class ChokeTrigger : Trigger
         chokeEnabled = true;
         interactDismissed = false;
         enemyScript.playerSeen = true;
+        playerAnim.SetBool("Attacking", false);
 
 
     }

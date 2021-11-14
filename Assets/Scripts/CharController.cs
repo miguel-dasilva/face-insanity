@@ -21,11 +21,10 @@ public class CharController : MonoBehaviour
     private float runSpeed = 17.0f;
 
     private bool isCrouched = false;
-    private float crouchHeight = 1.25f;
+    //private float crouchHeight = 1.25f;
     private float crouchSpeed = 6.0f;
 
     public bool playerSeen = false;
-
 
     public bool isHidden;
 
@@ -173,7 +172,7 @@ public class CharController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Boss")
+        if (other.gameObject.tag == "BossFist")
         {
             this.hp -= 20;
         }

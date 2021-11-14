@@ -11,6 +11,7 @@ TagManager:
   - Wall
   - Boss
   - stealthMask
+  - BossFist
   layers:
   - Default
   - TransparentFX

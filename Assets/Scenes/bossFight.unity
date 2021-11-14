@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1690,7 +1690,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2d95b5db3b70ed841986da36b672eb5a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -446.6144
+      value: -341.2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2d95b5db3b70ed841986da36b672eb5a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1698,7 +1698,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2d95b5db3b70ed841986da36b672eb5a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 498.60156
+      value: 500.85
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2d95b5db3b70ed841986da36b672eb5a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2056,6 +2056,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2d27a1c570a4c3439ab3ecf5b85fc88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 389166273}
 --- !u!114 &389166270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6871,7 +6872,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2715566404302941441, guid: 418677b89831d644cafcd39318964e6a, type: 3}
       propertyPath: m_TagString
-      value: Boss
+      value: BossFist
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 418677b89831d644cafcd39318964e6a, type: 3}
@@ -7822,6 +7823,7 @@ MonoBehaviour:
   playerSeen: 0
   light: {fileID: 379697038}
   enemyHearsPlayerRadius: 25
+  animator: {fileID: 1445218091}
 --- !u!195 &1445218088
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -7829,7 +7831,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132148256348063}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
@@ -7919,6 +7921,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visualCue: {fileID: 132040885}
   chokeDamage: 34
+  hitPoint: {fileID: 2014894329}
 --- !u!114 &1445218094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10357,6 +10360,36 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2011240011}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2014894328
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2014894329}
+  m_Layer: 0
+  m_Name: HitPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2014894329
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014894328}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.203, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 543450652459027749}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2018072270
 GameObject:
   m_ObjectHideFlags: 0
