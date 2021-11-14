@@ -14,11 +14,15 @@ public class Patrol : MonoBehaviour
     public float sightAngle;
     public bool playerSeen;
     public Light light;
+    public float enemyHearsPlayerRadius;
+
+    private CharController playerController;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
+        playerController = player.GetComponent<CharController>();
         target = player.GetComponent<Transform>();
 
         agent.autoBraking = false;
@@ -51,6 +55,8 @@ public class Patrol : MonoBehaviour
             {
                 light.color = Color.white;
                 playerSeen = false;
+                playerController.playerSeen = false;
+
                 agent.destination = points[destPoint].position;
             }
             else
@@ -59,17 +65,35 @@ public class Patrol : MonoBehaviour
                 agent.transform.LookAt(playerPosition);
                 agent.SetDestination(target.position);
             }
+            agent.speed = 12.0f;
+            agent.acceleration = 30.0f;
 
         }
         else if (distanceToPlayer <= sight && Vector3.Angle(transform.forward, vectorToPlayer) <= sightAngle) //Player spotted
         {
             playerSeen = true;
+            playerController.playerSeen = true;
         }
-        
+        else
+        {
+            agent.speed = 5.0f;
+            agent.acceleration = 8.0f;
+
+        }
+
+        if (distanceToPlayer <= enemyHearsPlayerRadius && playerController.isHidden == false)
+        {
+            playerSeen = true;
+            playerController.playerSeen = true;
+
+        }
+
+
         if (!agent.pathPending && agent.remainingDistance < 0.5f)
         {
             GotoNextPoint();
         }
+
 
     }
 }

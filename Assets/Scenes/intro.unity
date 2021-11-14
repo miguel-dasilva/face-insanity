@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0.3584906, g: 0.3584906, b: 0.3584906, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,8 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: c54ac5d85bfa24f47b7e7741cc9fa9d8, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: a636505fc287fb646b02ff4c1b00e709, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -200,6 +200,91 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cc1976615cc3f54bbce1677f3ef896e, type: 3}
+--- !u!1 &542366782
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 542366783}
+  - component: {fileID: 542366785}
+  - component: {fileID: 542366784}
+  - component: {fileID: 542366786}
+  m_Layer: 5
+  m_Name: RawImage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &542366783
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 542366782}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 4, y: 3, z: 1}
+  m_Children: []
+  m_Father: {fileID: 876610092}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 250, y: 250}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &542366784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 542366782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 2800000, guid: a4545fa935640b540a4a3f7038843603, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!222 &542366785
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 542366782}
+  m_CullTransparentMesh: 1
+--- !u!114 &542366786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 542366782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6057d118bcb6bee46ab8fb8583d63446, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &609971747
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,7 +336,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: A nice guy. Polite. Good job. Pretty Family... Wouldn't hurt a fly.
+  m_Text: 'Prisioner: A nice guy. Polite. Good job. Pretty Family... Wouldn''t hurt
+    a fly.'
 --- !u!222 &609971749
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -404,7 +490,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'What do you mean, fun?
+  m_Text: 'Detective: What do you mean, fun?
 
 '
 --- !u!222 &756434244
@@ -504,7 +590,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Why did you turn yourself in?
+  m_Text: 'Detective: Why did you turn yourself in?
 
 '
 --- !u!222 &794841567
@@ -700,6 +786,7 @@ RectTransform:
   - {fileID: 609971750}
   - {fileID: 1079980437}
   - {fileID: 1395957138}
+  - {fileID: 542366783}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -744,6 +831,8 @@ PlayableDirector:
   - key: {fileID: -6647181432104573846, guid: a952427867a0a7844a2921db05fec532, type: 2}
     value: {fileID: 1395957135}
   - key: {fileID: -9033915341334684370, guid: a952427867a0a7844a2921db05fec532, type: 2}
+    value: {fileID: 542366782}
+  - key: {fileID: 3612700947884142413, guid: a952427867a0a7844a2921db05fec532, type: 2}
     value: {fileID: 1166744795}
   m_ExposedReferences:
     m_References:
@@ -799,7 +888,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: And what to they want to see?
+  m_Text: 'Detective: And what to they want to see?'
 --- !u!222 &1009188171
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -878,8 +967,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: It's never been easier to be a psycho. I put on my mask, every day, hoping
-    someone will see through me...
+  m_Text: 'Prisioner: It''s never been easier to be a psycho. I put on my mask, every
+    day, hoping someone will see through me...'
 --- !u!222 &1079980436
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -963,7 +1052,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: But they never do.
+  m_Text: 'Prisioner: But they never do...'
 --- !u!222 &1395957137
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1042,8 +1131,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: There used to be a game between us. I would hurt and you would chase...
-    Back when people gave a damn.
+  m_Text: 'Prisioner: There used to be a game between us. I would hurt and you would
+    chase... Back when people gave a damn.'
 --- !u!222 &1851445378
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1122,7 +1211,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: But they don't anymore. They see what they want to see.
+  m_Text: 'Prisioner: But they don''t anymore. They see what they want to see.'
 --- !u!222 &1970723248
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1201,7 +1290,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'It''s no fun anymore
+  m_Text: 'Prisioner: It''s no fun anymore
 
 '
 --- !u!222 &2110411863
@@ -1276,14 +1365,14 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 7
+    m_Alignment: 6
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\u201CSome people\r\nnever\r\ngo crazy.\r\nWhat truly\r\nhorrible lives\r\nthey
-    must lead.\u201D\r\n- Charles Bukowski\r\n"
+    must lead.\u201D\r\n\n- Charles Bukowski\r\n"
 --- !u!222 &2127503062
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1308,8 +1397,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -8, y: 133}
-  m_SizeDelta: {x: 431.6, y: 342.2885}
+  m_AnchoredPosition: {x: 160, y: 97}
+  m_SizeDelta: {x: 431.59998, y: 342.2885}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &2390056913646882996
 PrefabInstance:

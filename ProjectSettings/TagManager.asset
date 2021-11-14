@@ -5,11 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - InteractCue
-  - Boss1
   - ItemReceivedImage
   - ItemReceivedText
   - HackableLights
   - Wall
+  - Boss
+  - stealthMask
   layers:
   - Default
   - TransparentFX

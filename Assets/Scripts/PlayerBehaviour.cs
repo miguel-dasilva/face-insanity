@@ -21,6 +21,8 @@ public class PlayerBehaviour : MonoBehaviour
 
 
 
+
+
     private void Awake()
     {
 
@@ -38,7 +40,7 @@ public class PlayerBehaviour : MonoBehaviour
         playerControls.Player.SprintReleased.performed += _ => SprintReleased();
 
         playerControls.Player.CrouchPressed.performed += _ => CrouchPressed();
-        playerControls.Player.CrouchReleased.performed += _ => CrouchReleased();
+        // playerControls.Player.CrouchReleased.performed += _ => CrouchReleased();
 
     }
 
@@ -92,14 +94,14 @@ public class PlayerBehaviour : MonoBehaviour
     }
     private void CrouchPressed()
     {
-        isCrouched = true;
-        character.SetIsCrouching(true);
+        isCrouched = !isCrouched;
+        character.SetIsCrouching(isCrouched);
     }
-    private void CrouchReleased()
+    /*private void CrouchReleased()
     {
         isCrouched = false;
         character.SetIsCrouching(false);
-    }
+    }*/
     private void StartInteraction() { interactPressed = true; }
     private void EndInteraction() { interactPressed = false; }
 

@@ -10,9 +10,12 @@ public class CameraControl : MonoBehaviour
 
     public float smoothSpeed = 0.125f;
 
+    private CharController character;
+
     public Vector3 offset;
     void Start()
     {
+        character = player.GetComponent<CharController>();
     }
 
     // Update is called once per frame
@@ -23,9 +26,13 @@ public class CameraControl : MonoBehaviour
 
     private void LateUpdate()
     {
-        Vector3 desiredPosition = player.transform.position + offset;
-        Vector3 smoothPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
-        transform.position = smoothPosition;
+        if (character.hp > 0)
+        {
+            Vector3 desiredPosition = player.transform.position + offset;
+            Vector3 smoothPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+            transform.position = smoothPosition;
+        }
+
     }
 
     void MoveCamera(Vector3 movement)

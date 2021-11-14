@@ -22,10 +22,20 @@ public class CharController : MonoBehaviour
 
     private bool isCrouched = false;
     private float crouchHeight = 1.25f;
-    private float crouchSpeed = 4.0f;
+    private float crouchSpeed = 6.0f;
+
+    public bool playerSeen = false;
+
+
+    public bool isHidden;
+
+    private Mask mask;
 
     private bool isColliding = false;
     // Start is called before the first frame update
+
+    public float hp;
+    public float maxHp = 100f;
     void Start()
     {
         forward = Camera.main.transform.forward;
@@ -33,6 +43,9 @@ public class CharController : MonoBehaviour
         forward = Vector3.Normalize(forward);
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
         characterBody = GetComponent<Rigidbody>();
+        hp = maxHp;
+        isHidden = false;
+        mask = GetComponent<Mask>();
 
 
     }
@@ -40,7 +53,12 @@ public class CharController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("IS HIDDEN = " + isHidden);
+        if (hp <= 0)
+        {
+            this.gameObject.transform.SetPositionAndRotation(new Vector3(0, -200, 0), this.gameObject.transform.rotation);
 
+        }
         if (this.isWalking && moveSpeed < maxSpeed)
         {
             moveSpeed += Time.deltaTime * acceleration;
@@ -112,19 +130,31 @@ public class CharController : MonoBehaviour
     public bool GetIsRunning() { return isRunning; }
     public void SetIsCrouching(bool value)
     {
-        if (value)
+        if (value && mask.loadout.ContainsKey("crouch"))
         {
             maxSpeed = crouchSpeed;
         }
-        else
+        else if (mask.loadout.ContainsKey("crouch"))
         {
             maxSpeed = 0.1f;
             acceleration = 0.0f;
             StartCoroutine(ChangeAccelarationAfterOtherAction(0.6f, 8.0f, deceleration, 6.5f));
         }
-        isCrouched = value;
-        if (value)
-            isRunning = false;
+        if (mask.loadout.ContainsKey("crouch"))
+        {
+            isCrouched = value;
+            if (playerSeen == false && isCrouched)
+            {
+                isHidden = true;
+            }
+            else
+            {
+                isHidden = false;
+            }
+            if (value)
+                isRunning = false;
+
+        }
     }
     public bool GetIsCrouching() { return isCrouched; }
     public float GetSpeed() { return moveSpeed; }
@@ -147,6 +177,12 @@ public class CharController : MonoBehaviour
         if (other.gameObject.tag == "Wall")
         {
             isColliding = true;
+        }
+        if (other.gameObject.tag == "Boss" && isHidden == false)
+        {
+            //Debug.Log("Here!  =" + other.gameObject.name);
+            hp -= 20;
+
         }
     }
 
