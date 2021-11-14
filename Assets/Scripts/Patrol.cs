@@ -6,11 +6,13 @@ public class Patrol : MonoBehaviour
 {
     public Transform[] points;
 
-    public float hp = 100;
+    public float attackRange = 1.5f;
+    public float hp = 100.0f;
     private int destPoint = 0;
     private NavMeshAgent agent;
     private float distanceToPlayer;
     private GameObject player;
+    public GameObject mRightFist;
     private Transform target;
     public float sight;
     public float sightAngle;
@@ -33,19 +35,6 @@ public class Patrol : MonoBehaviour
         GotoNextPoint();
     }
 
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.tag == "Player" && playerController.isHidden == false)
-        {
-            // function to attack including animation
-            playerController.hp -= 20;
-
-        }
-
-    }
-
-
-
     void GotoNextPoint()
     {
         if (points.Length == 0)
@@ -56,6 +45,15 @@ public class Patrol : MonoBehaviour
         destPoint = (destPoint + 1) % points.Length;
     }
 
+    public void activateFist()
+    {
+        mRightFist.GetComponent<Collider>().enabled = true;
+    }
+
+    public void deactivateFist()
+    {
+        mRightFist.GetComponent<Collider>().enabled = false;
+    }
 
     void Update()
     {
@@ -79,9 +77,16 @@ public class Patrol : MonoBehaviour
             }
             else
             {
-                light.color = Color.red;
-                agent.transform.LookAt(playerPosition);
-                agent.SetDestination(target.position);
+                if (distanceToPlayer <= attackRange)
+                {
+                    GetComponent<Animator>().SetTrigger("Attack");
+                }
+                else
+                {
+                    light.color = Color.red;
+                    agent.transform.LookAt(playerPosition);
+                    agent.SetDestination(target.position);
+                }
             }
             agent.speed = 12.0f;
             agent.acceleration = 30.0f;

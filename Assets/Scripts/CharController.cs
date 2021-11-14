@@ -171,6 +171,13 @@ public class CharController : MonoBehaviour
         deceleration = deccelaratione;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Boss")
+        {
+            this.hp -= 20;
+        }
+    }
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.tag == "Wall")
