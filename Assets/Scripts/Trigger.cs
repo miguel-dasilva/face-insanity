@@ -62,7 +62,6 @@ namespace Triggers
         {
             if (other.gameObject.tag == "Player")
             {
-                // Debug.Log("IN RANGE!!!");
                 playerInRange = true;
             }
         }

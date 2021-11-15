@@ -100,7 +100,6 @@ public class DialogueManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.5f);
         if (currentStory.canContinue)
         {
-            Debug.Log("CAN CONTINUE");
             dialogueText.text = currentStory.Continue();
             //aquela programacao defensiva... juro...
             if (dialogueText.text.Equals(""))
@@ -115,7 +114,6 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Cant");
             ExitStory();
         }
         isOccupied = false;
@@ -147,7 +145,6 @@ public class DialogueManager : MonoBehaviour
 
         foreach (Choice choice in currentChoices)
         {
-            //Debug.Log(ind + " text:" + choice.text);
             choices[ind].gameObject.SetActive(true);
             choicesText[ind].text = choice.text;
             ind++;
@@ -166,7 +163,6 @@ public class DialogueManager : MonoBehaviour
 
     private IEnumerator SelectFirstChoiceEvent()
     {
-        //Debug.Log("HERE!");
         EventSystem.current.SetSelectedGameObject(null);
         yield return new WaitForEndOfFrame();
         EventSystem.current.SetSelectedGameObject(choices[0].gameObject);
@@ -175,7 +171,6 @@ public class DialogueManager : MonoBehaviour
 
     public void MakeChoice(int choiceIndex)
     {
-        Debug.Log("HEEEEEERRRRE!!!!! =>>>" + choiceIndex);
         currentStory.ChooseChoiceIndex(choiceIndex);
     }
 }

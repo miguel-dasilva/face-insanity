@@ -67,8 +67,6 @@ public class ChokeTrigger : Trigger
     }
     protected override void checkForPlayerInteraction()
     {
-        Debug.Log("player= " + Player);
-        Debug.Log("interact =" + interactDismissed);
         if (Player.GetInteractPressed() == true && interactDismissed == false)
         {
             chokeEnemy();
@@ -86,16 +84,10 @@ public class ChokeTrigger : Trigger
             StartCoroutine(reEnableChoke());
 
         }
-        //damageEffect.StartDamagedEffect();
-        //Debug.Log("animation");
         PlayerController.transform.rotation = hitPoint.rotation;
         playerAnim.SetBool("Attacking", true);
 
-        Debug.Log("ENEMY HP = " + enemyScript.hp);
-        Debug.Log("Forward " + PlayerController.GetForward() * 10);
-        Debug.Log("enemy.position = " + enemy.transform.position);
         enemyRb.transform.position += PlayerController.GetForward() * 10;
-        Debug.Log("enemy.position after = " + enemy.transform.position);
         spotLight.SetActive(false);
         StartCoroutine(reEnableLight());
         enemyScript.enemyMovement = false;
