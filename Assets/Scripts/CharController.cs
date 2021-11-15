@@ -185,7 +185,7 @@ public class CharController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "BossFist" && enemyScript.isAttacking)
+        if (other.gameObject.tag == "BossFist")
         {
 
             this.hp -= 34;
