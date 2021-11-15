@@ -27,6 +27,11 @@ public class DialogueManager : MonoBehaviour
 
     private bool isOccupied = false;
 
+    private GameObject boss;
+
+    private Patrol bossScript;
+
+
     private void Awake()
     {
         if (instance != null)
@@ -42,6 +47,11 @@ public class DialogueManager : MonoBehaviour
         choicesText = new TextMeshProUGUI[choices.Length];
         numberOfFinishedDialogueSegments = 0;
         int ind = 0;
+        boss = GameObject.FindGameObjectWithTag("Boss");
+        if (boss != null)
+        {
+            bossScript = boss.GetComponent<Patrol>();
+        }
         foreach (GameObject choice in choices)
         {
             choicesText[ind] = choice.GetComponentInChildren<TextMeshProUGUI>();
@@ -77,6 +87,10 @@ public class DialogueManager : MonoBehaviour
         currentStory = new Story(inkJSON.text);
         dialogueIsPlaying = true;
         dialoguePanel.SetActive(true);
+        if (bossScript != null)
+        {
+            bossScript.freeze = true;
+        }
 
         StartCoroutine(ContinueStory());
     }
@@ -84,9 +98,9 @@ public class DialogueManager : MonoBehaviour
     private IEnumerator ContinueStory()
     {
         yield return new WaitForSecondsRealtime(0.5f);
-
         if (currentStory.canContinue)
         {
+            Debug.Log("CAN CONTINUE");
             dialogueText.text = currentStory.Continue();
             //aquela programacao defensiva... juro...
             if (dialogueText.text.Equals(""))
@@ -101,6 +115,7 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("Cant");
             ExitStory();
         }
         isOccupied = false;
@@ -112,6 +127,10 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.SetActive(false);
         dialogueText.text = "";
         numberOfFinishedDialogueSegments++;
+        if (bossScript)
+        {
+            bossScript.freeze = false;
+        }
     }
 
     private void DisplayChoices()
@@ -147,6 +166,7 @@ public class DialogueManager : MonoBehaviour
 
     private IEnumerator SelectFirstChoiceEvent()
     {
+        //Debug.Log("HERE!");
         EventSystem.current.SetSelectedGameObject(null);
         yield return new WaitForEndOfFrame();
         EventSystem.current.SetSelectedGameObject(choices[0].gameObject);
@@ -155,6 +175,7 @@ public class DialogueManager : MonoBehaviour
 
     public void MakeChoice(int choiceIndex)
     {
+        Debug.Log("HEEEEEERRRRE!!!!! =>>>" + choiceIndex);
         currentStory.ChooseChoiceIndex(choiceIndex);
     }
 }

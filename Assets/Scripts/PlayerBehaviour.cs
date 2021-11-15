@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 //using UnityEngine.InputSystem;
 
 
@@ -27,7 +28,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
 
         playerControls = new InputHandler();
-        playerControls.Player.Movement.started += _ => StartMovement();
+        playerControls.Player.Movement.started += ctx => StartMovement(ctx);
         playerControls.Player.Movement.canceled += _ => CancelMovement();
         playerControls.Player.Interact.started += _ => StartInteraction();
         playerControls.Player.Interact.canceled += _ => EndInteraction();
@@ -67,12 +68,16 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    private void StartMovement()
+    private void StartMovement(InputAction.CallbackContext ctx)
     {
         if (DialogueManager.GetInstance().dialogueIsPlaying == false)
         {
             isWalking = true;
             character.SetIsWalking(true);
+        }
+        else
+        {
+
         }
     }
 

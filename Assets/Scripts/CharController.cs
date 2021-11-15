@@ -7,7 +7,7 @@ public class CharController : MonoBehaviour
     [SerializeField] float moveSpeed = 0.0f;
     [SerializeField] public Rigidbody rb;
 
-    Vector3 forward, right;
+    Vector3 forward, right, heading;
 
     private Rigidbody characterBody;
 
@@ -35,6 +35,12 @@ public class CharController : MonoBehaviour
 
     public float hp;
     public float maxHp = 100f;
+
+    private CameraControl cam;
+
+    private Patrol enemyScript;
+
+    private GameObject enemy;
     void Start()
     {
         forward = Camera.main.transform.forward;
@@ -45,6 +51,10 @@ public class CharController : MonoBehaviour
         hp = maxHp;
         isHidden = false;
         mask = GetComponent<Mask>();
+        cam = Camera.main.GetComponent<CameraControl>();
+        enemy = GameObject.FindGameObjectWithTag("Boss");
+        if (enemy)
+            enemyScript = enemy.GetComponent<Patrol>();
 
 
     }
@@ -54,7 +64,7 @@ public class CharController : MonoBehaviour
     {
         if (hp <= 0)
         {
-            this.gameObject.transform.SetPositionAndRotation(new Vector3(0, -200, 0), this.gameObject.transform.rotation);
+            this.gameObject.transform.SetPositionAndRotation(new Vector3(0, -10, 0), this.gameObject.transform.rotation);
 
         }
         if (this.isWalking && moveSpeed < maxSpeed)
@@ -92,7 +102,7 @@ public class CharController : MonoBehaviour
     {
         Vector3 rightMovement = right * Time.deltaTime * moveSpeed * (movement.x);
         Vector3 upMovement = forward * Time.deltaTime * moveSpeed * (movement.y);
-        Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
+        heading = Vector3.Normalize(rightMovement + upMovement);
 
 
         transform.forward = heading;
@@ -122,7 +132,10 @@ public class CharController : MonoBehaviour
         }
         isRunning = value;
         if (value)
+        {
+            isHidden = false;
             isCrouched = false;
+        }
 
     }
     public bool GetIsRunning() { return isRunning; }
@@ -172,9 +185,12 @@ public class CharController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "BossFist")
+        if (other.gameObject.tag == "BossFist" && enemyScript.isAttacking)
         {
-            this.hp -= 20;
+
+            this.hp -= 34;
+            cam.Shake(1);
+
         }
     }
     private void OnCollisionEnter(Collision other)
@@ -192,5 +208,10 @@ public class CharController : MonoBehaviour
     {
         if (other.gameObject.tag == "Wall")
             isColliding = false;
+    }
+
+    public Vector3 GetForward()
+    {
+        return heading;
     }
 }

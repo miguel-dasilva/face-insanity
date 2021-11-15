@@ -12,6 +12,7 @@ TagManager:
   - Boss
   - stealthMask
   - BossFist
+  - EnemyLight
   layers:
   - Default
   - TransparentFX

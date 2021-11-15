@@ -19,7 +19,16 @@ public class ChokeTrigger : Trigger
 
     private Animator playerAnim;
 
+    private Rigidbody enemyRb;
+
     public Transform hitPoint;
+
+    private GameObject spotLight;
+
+    private CameraControl cam;
+
+
+
 
     protected override void Start()
     {
@@ -29,10 +38,37 @@ public class ChokeTrigger : Trigger
         chokeDamage = (enemyScript.hp / 3) + 1;
         damageEffect = GetComponent<DamageEffect>();
         playerAnim = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
+        enemyRb = enemy.GetComponent<Rigidbody>();
+        spotLight = GameObject.FindGameObjectWithTag("EnemyLight");
+        cam = Camera.main.GetComponent<CameraControl>();
 
+
+    }
+
+    protected override void Update()
+    {
+
+        if (playerInRange && enemyScript.playerSeen == false)
+        {
+            if (interactDismissed == false)
+            {
+                visualCue.SetActive(true);
+                visualCue.transform.LookAt(Camera.main.transform.position);
+
+            }
+
+            checkForPlayerInteraction();
+
+        }
+        else
+        {
+            visualCue.SetActive(false);
+        }
     }
     protected override void checkForPlayerInteraction()
     {
+        Debug.Log("player= " + Player);
+        Debug.Log("interact =" + interactDismissed);
         if (Player.GetInteractPressed() == true && interactDismissed == false)
         {
             chokeEnemy();
@@ -50,22 +86,39 @@ public class ChokeTrigger : Trigger
             StartCoroutine(reEnableChoke());
 
         }
-        //Debug.Log("ENEMY HP = " + enemyScript.hp);
         //damageEffect.StartDamagedEffect();
-        Debug.Log("animation");
-        enemyScript.damaged();
+        //Debug.Log("animation");
         PlayerController.transform.rotation = hitPoint.rotation;
         playerAnim.SetBool("Attacking", true);
+
+        Debug.Log("ENEMY HP = " + enemyScript.hp);
+        Debug.Log("Forward " + PlayerController.GetForward() * 10);
+        Debug.Log("enemy.position = " + enemy.transform.position);
+        enemyRb.transform.position += PlayerController.GetForward() * 10;
+        Debug.Log("enemy.position after = " + enemy.transform.position);
+        spotLight.SetActive(false);
+        StartCoroutine(reEnableLight());
+        enemyScript.enemyMovement = false;
+        //enemyScript.damaged();
+        playerAnim.SetBool("Attacking", false);
+        cam.Shake(1);
         // do animation stuff xD
     }
 
+    private IEnumerator reEnableLight()
+    {
+        yield return new WaitForSecondsRealtime(2.0f);
+        spotLight.SetActive(true);
+        enemyScript.enemyMovement = true;
+
+    }
     private IEnumerator reEnableChoke()
     {
         yield return new WaitForSecondsRealtime(1.0f);
         chokeEnabled = true;
         interactDismissed = false;
         enemyScript.playerSeen = true;
-        playerAnim.SetBool("Attacking", false);
+
 
 
     }

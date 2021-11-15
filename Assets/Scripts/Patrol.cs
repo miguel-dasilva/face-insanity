@@ -17,10 +17,25 @@ public class Patrol : MonoBehaviour
     public float sight;
     public float sightAngle;
     public bool playerSeen;
-    public Light light;
+    public Light spotLight;
     public float enemyHearsPlayerRadius;
     public Animator animator;
     private CharController playerController;
+
+    public bool enemyMovement = true;
+
+    public bool isAttacking = false;
+
+    public bool freeze = false;
+
+    [Header("Ink JSON")]
+
+    [SerializeField] private TextAsset inkJSON;
+
+    private bool END = false;
+
+    private bool finalDialogue = false;
+
 
     void Start()
     {
@@ -28,6 +43,7 @@ public class Patrol : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerController = player.GetComponent<CharController>();
         target = player.GetComponent<Transform>();
+        spotLight = GameObject.FindGameObjectWithTag("EnemyLight").GetComponent<Light>();
 
         agent.autoBraking = false;
         playerSeen = false;
@@ -61,66 +77,98 @@ public class Patrol : MonoBehaviour
     }
     void Update()
     {
+
         Vector3 playerPosition = target.position;
         Vector3 vectorToPlayer = playerPosition - transform.position;
         distanceToPlayer = Vector3.Distance(playerPosition, transform.position);
-        if (hp <= 0)
+        if (finalDialogue && DialogueManager.GetInstance().dialogueIsPlaying == false)
         {
-            Destroy(this);
+            END = true;
         }
-
-        if (playerSeen)
+        if (!freeze)
         {
-            if (distanceToPlayer > sight)
+            if (hp <= 0)
             {
-                light.color = Color.white;
-                playerSeen = false;
-                playerController.playerSeen = false;
 
-                agent.destination = points[destPoint].position;
-            }
-            else
-            {
-                if (distanceToPlayer <= attackRange)
+                if (!finalDialogue)
                 {
-                    animator.SetTrigger("Attack");
+                    Debug.Log("OLE");
+                    freeze = true;
+                    animator.SetTrigger("GoIdle");
+                    finalDialogue = true;
+                    DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+                }
+            }
+
+            if (playerSeen)
+            {
+                if (distanceToPlayer > sight)
+                {
+                    spotLight.color = Color.white;
+                    playerSeen = false;
+                    playerController.playerSeen = false;
+
+                    agent.destination = points[destPoint].position;
                 }
                 else
                 {
-                    light.color = Color.red;
-                    agent.transform.LookAt(playerPosition);
-                    agent.SetDestination(target.position);
+                    if (distanceToPlayer <= attackRange)
+                    {
+                        animator.SetTrigger("Attack");
+                        enemyMovement = false;
+                        isAttacking = true;
+                        StartCoroutine(reEnableEnemyMovement());
+                    }
+                    else
+                    {
+                        spotLight.color = Color.red;
+                        agent.transform.LookAt(playerPosition);
+                        agent.SetDestination(target.position);
+                        isAttacking = false;
+                    }
                 }
+                agent.speed = 13.0f;
+                agent.acceleration = 30.0f;
+
             }
-            agent.speed = 12.0f;
-            agent.acceleration = 30.0f;
+            else if (distanceToPlayer <= sight && Vector3.Angle(transform.forward, vectorToPlayer) <= sightAngle) //Player spotted
+            {
+                playerSeen = true;
+                playerController.playerSeen = true;
+            }
+            else
+            {
+                agent.speed = 5.0f;
+                agent.acceleration = 8.0f;
+
+            }
+
+            if (distanceToPlayer <= enemyHearsPlayerRadius && playerController.isHidden == false)
+            {
+                playerSeen = true;
+                playerController.playerSeen = true;
+
+            }
+
+
+            if (!agent.pathPending && agent.remainingDistance < 0.5f && enemyMovement)
+            {
+                GotoNextPoint();
+            }
 
         }
-        else if (distanceToPlayer <= sight && Vector3.Angle(transform.forward, vectorToPlayer) <= sightAngle) //Player spotted
-        {
-            playerSeen = true;
-            playerController.playerSeen = true;
-        }
-        else
-        {
-            agent.speed = 5.0f;
-            agent.acceleration = 8.0f;
-
-        }
-
-        if (distanceToPlayer <= enemyHearsPlayerRadius && playerController.isHidden == false)
-        {
-            playerSeen = true;
-            playerController.playerSeen = true;
-
-        }
 
 
-        if (!agent.pathPending && agent.remainingDistance < 0.5f)
-        {
-            GotoNextPoint();
-        }
+    }
 
+    public bool GetEND()
+    {
+        return END;
+    }
 
+    private IEnumerator reEnableEnemyMovement()
+    {
+        yield return new WaitForSecondsRealtime(5.0f);
+        enemyMovement = true;
     }
 }

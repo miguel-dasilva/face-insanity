@@ -9,13 +9,13 @@ public class DialogueTrigger : Trigger
 
 
     [Header("Ink JSON")]
-    [SerializeField] private TextAsset inkJSON;
+    [SerializeField] protected TextAsset inkJSON;
 
     [Header("Sit Position")]
-    [SerializeField] private Transform sitPosition;
+    [SerializeField] protected Transform sitPosition;
 
-    private Animator animator;
-    private Animator playerAnim;
+    protected Animator animator;
+    protected Animator playerAnim;
 
 
     private new void Awake()
@@ -40,10 +40,14 @@ public class DialogueTrigger : Trigger
     {
         if (Player.GetInteractPressed() == true && interactDismissed == false)
         {
+            if (sitPosition != null)
+            {
+
+                playerRB.isKinematic = true;
+                PlayerController.SetPosition(sitPosition.position, sitPosition.rotation);
+                playerAnim.SetTrigger("Sit");
+            }
             animator.SetBool("interactPressed", true);
-            playerRB.isKinematic = true;
-            PlayerController.SetPosition(sitPosition.position, sitPosition.rotation);
-            playerAnim.SetTrigger("Sit");
             DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
             interactDismissed = true;
 

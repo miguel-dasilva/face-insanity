@@ -13,6 +13,12 @@ public class CameraControl : MonoBehaviour
     private CharController character;
 
     public Vector3 offset;
+
+    private float shake = 0;
+
+    public float shakeAmount = 0.7f;
+
+    public float decreaseFactor = 1.0f;
     void Start()
     {
         character = player.GetComponent<CharController>();
@@ -21,7 +27,16 @@ public class CameraControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (shake > 0)
+        {
+            transform.localPosition += Random.insideUnitSphere * shakeAmount;
+            shake -= Time.deltaTime * decreaseFactor;
 
+        }
+        else
+        {
+            shake = 0.0f;
+        }
     }
 
     private void LateUpdate()
@@ -38,5 +53,10 @@ public class CameraControl : MonoBehaviour
     void MoveCamera(Vector3 movement)
     {
         this.transform.position += movement;
+    }
+
+    public void Shake(int value)
+    {
+        shake = value;
     }
 }

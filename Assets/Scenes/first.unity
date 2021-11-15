@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -668,17 +668,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
-  m_ActionsAsset: {fileID: -944628639613478452, guid: 6c072d59b37295e4a8d64a9e0b495e44, type: 3}
-  m_PointAction: {fileID: 0}
-  m_MoveAction: {fileID: 0}
-  m_SubmitAction: {fileID: 0}
-  m_CancelAction: {fileID: 0}
-  m_LeftClickAction: {fileID: 0}
-  m_MiddleClickAction: {fileID: 0}
-  m_RightClickAction: {fileID: 0}
-  m_ScrollWheelAction: {fileID: 0}
-  m_TrackedDevicePositionAction: {fileID: 0}
-  m_TrackedDeviceOrientationAction: {fileID: 0}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_PointAction: {fileID: 1054132383583890850, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MoveAction: {fileID: 3710738434707379630, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_SubmitAction: {fileID: 2064916234097673511, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_CancelAction: {fileID: -1967631576421560919, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_LeftClickAction: {fileID: 8056856818456041789, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MiddleClickAction: {fileID: 3279352641294131588, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_RightClickAction: {fileID: 3837173908680883260, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_ScrollWheelAction: {fileID: 4502412055082496612, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDevicePositionAction: {fileID: 4754684134866288074, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 1025543830046995696, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
 --- !u!114 &790352615
@@ -695,7 +695,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
-  m_DragThreshold: 10
+  m_DragThreshold: 1
 --- !u!4 &790352616
 Transform:
   m_ObjectHideFlags: 0
@@ -922,7 +922,7 @@ GameObject:
   - component: {fileID: 1069225982}
   m_Layer: 0
   m_Name: MaskStandIn
-  m_TagString: Untagged
+  m_TagString: stealthMask
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1028,7 +1028,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 6c072d59b37295e4a8d64a9e0b495e44, type: 3}
   m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 790352614}
+  m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -1088,6 +1088,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2d27a1c570a4c3439ab3ecf5b85fc88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 1099449737}
 --- !u!54 &1099449741
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2031,6 +2032,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1698056068889787016, guid: 2531ceb1de998da4d91da42c219e641d, type: 3}
+      propertyPath: inkJSON
+      value: 
+      objectReference: {fileID: 4900000, guid: 4e20de97b7688bb4aa0c16f19d0d34f8, type: 3}
+    - target: {fileID: 1698056068889787016, guid: 2531ceb1de998da4d91da42c219e641d, type: 3}
       propertyPath: visualCue
       value: 
       objectReference: {fileID: 1384998615}
@@ -2195,6 +2200,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 318637957}
+    - target: {fileID: 7641980109551377591, guid: b28e6d210c20a334cbf14ee7d6f4fa7c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7641980109697473388, guid: b28e6d210c20a334cbf14ee7d6f4fa7c, type: 3}
       propertyPath: m_Texture
       value: 
@@ -2203,10 +2212,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 318637957}
+    - target: {fileID: 7641980109737044700, guid: b28e6d210c20a334cbf14ee7d6f4fa7c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7641980109898068911, guid: b28e6d210c20a334cbf14ee7d6f4fa7c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 318637957}
+    - target: {fileID: 7641980109898068911, guid: b28e6d210c20a334cbf14ee7d6f4fa7c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7641980110655387396, guid: b28e6d210c20a334cbf14ee7d6f4fa7c, type: 3}
       propertyPath: m_Pivot.x
       value: 0

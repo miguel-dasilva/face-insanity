@@ -142,7 +142,7 @@ public class @InputHandler : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""992c1ad0-5d01-43a4-a771-fc7ffefdda86"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -178,7 +178,7 @@ public class @InputHandler : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/shift"",
                     ""interactions"": ""Press(behavior=1)"",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""keyboard"",
                     ""action"": ""SprintReleased"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -189,7 +189,7 @@ public class @InputHandler : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""keyboard"",
                     ""action"": ""CrouchPressed"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -211,7 +211,7 @@ public class @InputHandler : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": ""Press(behavior=1)"",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""keyboard"",
                     ""action"": ""CrouchReleased"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
