@@ -6,15 +6,15 @@ using UnityEngine.AI;
 public class aiAnimController : MonoBehaviour
 {
     Animator animator;
-    NavMeshAgent npc;
     private Vector3 previousPosition;
     public float curSpeed;
 
+    int VelocityHash;
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
-        npc = GetComponent<NavMeshAgent>();
+        VelocityHash = Animator.StringToHash("Velocity");
     }
 
     // Update is called once per frame
@@ -23,6 +23,6 @@ public class aiAnimController : MonoBehaviour
         Vector3 curMove = transform.position - previousPosition;
         curSpeed = curMove.magnitude / Time.deltaTime;
         previousPosition = transform.position;
-        animator.SetFloat("Velocity", curSpeed);
+        animator.SetFloat(VelocityHash, curSpeed);
     }
 }

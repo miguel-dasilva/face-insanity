@@ -7,10 +7,8 @@ public class CharController : MonoBehaviour
     [SerializeField] float moveSpeed = 0.0f;
     [SerializeField] public Rigidbody rb;
 
+    //Movement and mechanics
     Vector3 forward, right, heading;
-
-    private Rigidbody characterBody;
-
 
     private bool isWalking = false;
     private float acceleration = 8.0f;
@@ -21,7 +19,6 @@ public class CharController : MonoBehaviour
     private float runSpeed = 17.0f;
 
     private bool isCrouched = false;
-    //private float crouchHeight = 1.25f;
     private float crouchSpeed = 6.0f;
 
     public bool playerSeen = false;
@@ -31,8 +28,8 @@ public class CharController : MonoBehaviour
     private Mask mask;
 
     private bool isColliding = false;
-    // Start is called before the first frame update
-
+    
+    // Attributes
     public float hp;
     public float maxHp = 100f;
 
@@ -47,7 +44,6 @@ public class CharController : MonoBehaviour
         forward.y = 0;
         forward = Vector3.Normalize(forward);
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
-        characterBody = GetComponent<Rigidbody>();
         hp = maxHp;
         isHidden = false;
         mask = GetComponent<Mask>();

@@ -6,13 +6,21 @@ public class animationController : MonoBehaviour
 {
     Animator animator;
     CharController character;
-    float velocity;
+
+    int WalkingHash;
+    int RunningHash;
+    int VelocityHash;
+    int CrouchingHash;
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
         character = GetComponent<CharController>();
-        
+
+        WalkingHash = Animator.StringToHash("isWalking");
+        RunningHash = Animator.StringToHash("isRunning");
+        VelocityHash = Animator.StringToHash("Velocity");
+        CrouchingHash = Animator.StringToHash("isCrouched");
     }
 
     // Update is called once per frame
@@ -24,34 +32,34 @@ public class animationController : MonoBehaviour
 
         if (!isWalking && character.GetIsWalking())
         {
-            animator.SetBool("isWalking", true);
+            animator.SetBool(WalkingHash, true);
         }
         
         if (isWalking && !character.GetIsWalking())
         {
-            animator.SetBool("isWalking", false);
+            animator.SetBool(WalkingHash, false);
         }
 
         if (!isRunning && (character.GetIsWalking() && character.GetIsRunning()))
         {
-            animator.SetBool("isRunning", true);
+            animator.SetBool(RunningHash, true);
         }
         
         if (isRunning && (!character.GetIsWalking() || !character.GetIsRunning()))
         {
-            animator.SetBool("isRunning", false);
+            animator.SetBool(RunningHash, false);
         }
         
         if (!isCrouched && character.GetIsCrouching())
         {
-            animator.SetBool("isCrouched", true);
+            animator.SetBool(CrouchingHash, true);
         }
 
         if (isCrouched && !character.GetIsCrouching())
         {
-            animator.SetBool("isCrouched", false);
+            animator.SetBool(CrouchingHash, false);
         }
 
-       animator.SetFloat("Velocity", character.GetSpeed());
+       animator.SetFloat(VelocityHash, character.GetSpeed());
     }
 }
