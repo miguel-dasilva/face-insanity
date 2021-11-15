@@ -26,7 +26,6 @@ public class LightsTrigger : DialogueTrigger
         int i = 0;
         foreach (GameObject obj in lightsObjects)
         {
-            //Debug.Log("light" + obj.name);
             lights[i] = obj.GetComponent<Light>();
             i++;
         }
@@ -34,7 +33,7 @@ public class LightsTrigger : DialogueTrigger
 
     protected override void checkForPlayerInteraction()
     {
-        if (Player.GetInteractPressed() == true && interactDismissed == false)
+        if (Player.GetInteractPressed() == true && interactDismissed == false && PlayerController.mask.loadout.ContainsKey("tamper"))
         {
             animator.SetBool("interactPressed", true);
             foreach (Light light in lights)

@@ -9,7 +9,7 @@ public class Patrol : MonoBehaviour
     public float attackRange = 1.5f;
     public float hp = 100.0f;
     private int destPoint = 0;
-    private NavMeshAgent agent;
+    public NavMeshAgent agent;
     private float distanceToPlayer;
     private GameObject player;
     public GameObject mRightFist;
@@ -75,8 +75,9 @@ public class Patrol : MonoBehaviour
     {
         animator.SetTrigger("Damaged");
         agent.isStopped = true;
-        StartCoroutine(reEnableEnemyMovement());
+        StartCoroutine(reEnableEnemyMovement(3.3f));
     }
+
     void Update()
     {
 
@@ -94,10 +95,10 @@ public class Patrol : MonoBehaviour
 
                 if (!finalDialogue)
                 {
-                    Debug.Log("OLE");
                     freeze = true;
                     animator.SetTrigger("GoIdle");
                     finalDialogue = true;
+                    //agent isstoped 
                     DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
                 }
             }
@@ -118,7 +119,7 @@ public class Patrol : MonoBehaviour
                         agent.isStopped = true;
                         //enemyMovement = false;
                         isAttacking = true;
-                        StartCoroutine(reEnableEnemyMovement());
+                        StartCoroutine(reEnableEnemyMovement(0.5f));
                     }
                     else
                     {
@@ -154,9 +155,8 @@ public class Patrol : MonoBehaviour
 
             if (!agent.pathPending && agent.remainingDistance < 0.5f)
             {
-                Debug.Log("reached one point");
                 agent.isStopped = true;
-                StartCoroutine(reEnableEnemyMovement());
+                StartCoroutine(reEnableEnemyMovement(0.5f));
                 GotoNextPoint();
             }
 
@@ -170,9 +170,9 @@ public class Patrol : MonoBehaviour
         return END;
     }
 
-    private IEnumerator reEnableEnemyMovement()
+    private IEnumerator reEnableEnemyMovement(float time)
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(time);
         agent.isStopped = false;
         enemyMovement = true;
     }

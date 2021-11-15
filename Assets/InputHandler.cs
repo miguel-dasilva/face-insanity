@@ -81,6 +81,14 @@ public class @InputHandler : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""CycleMask"",
+                    ""type"": ""Value"",
+                    ""id"": ""e80ed39d-f2ed-4e06-822d-ba26382574ba"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -226,6 +234,17 @@ public class @InputHandler : IInputActionCollection, IDisposable
                     ""action"": ""Continue"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ed3428c3-db43-43bc-b8d1-b3f933b0bfd4"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""keyboard"",
+                    ""action"": ""CycleMask"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -254,6 +273,7 @@ public class @InputHandler : IInputActionCollection, IDisposable
         m_Player_CrouchPressed = m_Player.FindAction("CrouchPressed", throwIfNotFound: true);
         m_Player_CrouchReleased = m_Player.FindAction("CrouchReleased", throwIfNotFound: true);
         m_Player_Continue = m_Player.FindAction("Continue", throwIfNotFound: true);
+        m_Player_CycleMask = m_Player.FindAction("CycleMask", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -311,6 +331,7 @@ public class @InputHandler : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_CrouchPressed;
     private readonly InputAction m_Player_CrouchReleased;
     private readonly InputAction m_Player_Continue;
+    private readonly InputAction m_Player_CycleMask;
     public struct PlayerActions
     {
         private @InputHandler m_Wrapper;
@@ -323,6 +344,7 @@ public class @InputHandler : IInputActionCollection, IDisposable
         public InputAction @CrouchPressed => m_Wrapper.m_Player_CrouchPressed;
         public InputAction @CrouchReleased => m_Wrapper.m_Player_CrouchReleased;
         public InputAction @Continue => m_Wrapper.m_Player_Continue;
+        public InputAction @CycleMask => m_Wrapper.m_Player_CycleMask;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -356,6 +378,9 @@ public class @InputHandler : IInputActionCollection, IDisposable
                 @Continue.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnContinue;
                 @Continue.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnContinue;
                 @Continue.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnContinue;
+                @CycleMask.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCycleMask;
+                @CycleMask.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCycleMask;
+                @CycleMask.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCycleMask;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -384,6 +409,9 @@ public class @InputHandler : IInputActionCollection, IDisposable
                 @Continue.started += instance.OnContinue;
                 @Continue.performed += instance.OnContinue;
                 @Continue.canceled += instance.OnContinue;
+                @CycleMask.started += instance.OnCycleMask;
+                @CycleMask.performed += instance.OnCycleMask;
+                @CycleMask.canceled += instance.OnCycleMask;
             }
         }
     }
@@ -407,5 +435,6 @@ public class @InputHandler : IInputActionCollection, IDisposable
         void OnCrouchPressed(InputAction.CallbackContext context);
         void OnCrouchReleased(InputAction.CallbackContext context);
         void OnContinue(InputAction.CallbackContext context);
+        void OnCycleMask(InputAction.CallbackContext context);
     }
 }

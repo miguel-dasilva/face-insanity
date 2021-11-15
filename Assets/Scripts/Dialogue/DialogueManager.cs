@@ -90,6 +90,7 @@ public class DialogueManager : MonoBehaviour
         if (bossScript != null)
         {
             bossScript.freeze = true;
+            bossScript.agent.isStopped = true;
         }
 
         StartCoroutine(ContinueStory());
@@ -128,6 +129,7 @@ public class DialogueManager : MonoBehaviour
         if (bossScript)
         {
             bossScript.freeze = false;
+            bossScript.agent.isStopped = false;
         }
     }
 

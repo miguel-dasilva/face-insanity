@@ -25,10 +25,10 @@ public class CharController : MonoBehaviour
 
     public bool isHidden;
 
-    private Mask mask;
+    public Mask mask;
 
     private bool isColliding = false;
-    
+
     // Attributes
     public float hp;
     public float maxHp = 100f;

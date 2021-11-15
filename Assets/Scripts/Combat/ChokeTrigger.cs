@@ -67,7 +67,7 @@ public class ChokeTrigger : Trigger
     }
     protected override void checkForPlayerInteraction()
     {
-        if (Player.GetInteractPressed() == true && interactDismissed == false)
+        if (Player.GetInteractPressed() == true && interactDismissed == false && PlayerController.mask.loadout.ContainsKey("choke"))
         {
             chokeEnemy();
 
@@ -80,29 +80,30 @@ public class ChokeTrigger : Trigger
         {
             enemyScript.damaged();
             enemyScript.hp -= chokeDamage;
+            enemyScript.agent.isStopped = true;
             chokeEnabled = false;
             interactDismissed = true;
             StartCoroutine(reEnableChoke());
+            PlayerController.transform.rotation = hitPoint.rotation;
+            playerAnim.SetBool("Attacking", true);
+
+            enemyRb.transform.position += PlayerController.GetForward() * 10;
+            spotLight.SetActive(false);
+            StartCoroutine(reEnableLight());
+            enemyScript.enemyMovement = false;
+            playerAnim.SetBool("Attacking", false);
+            cam.Shake(1);
 
         }
-        PlayerController.transform.rotation = hitPoint.rotation;
-        playerAnim.SetBool("Attacking", true);
-
-        enemyRb.transform.position += PlayerController.GetForward() * 10;
-        spotLight.SetActive(false);
-        StartCoroutine(reEnableLight());
-        enemyScript.enemyMovement = false;
-        //enemyScript.damaged();
-        playerAnim.SetBool("Attacking", false);
-        cam.Shake(1);
         // do animation stuff xD
     }
 
     private IEnumerator reEnableLight()
     {
-        yield return new WaitForSecondsRealtime(2.0f);
+        yield return new WaitForSecondsRealtime(3.3f);
         spotLight.SetActive(true);
         enemyScript.enemyMovement = true;
+        enemyScript.agent.isStopped = false;
 
     }
     private IEnumerator reEnableChoke()

@@ -28,7 +28,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
 
         playerControls = new InputHandler();
-        playerControls.Player.Movement.started += ctx => StartMovement(ctx);
+        playerControls.Player.Movement.started += _ => StartMovement();
         playerControls.Player.Movement.canceled += _ => CancelMovement();
         playerControls.Player.Interact.started += _ => StartInteraction();
         playerControls.Player.Interact.canceled += _ => EndInteraction();
@@ -42,6 +42,9 @@ public class PlayerBehaviour : MonoBehaviour
 
         playerControls.Player.CrouchPressed.performed += _ => CrouchPressed();
         // playerControls.Player.CrouchReleased.performed += _ => CrouchReleased();
+
+        playerControls.Player.CycleMask.performed += _ => CycleMask();
+        playerControls.Player.CycleMask.canceled += _ => CycleMaskCanceled();
 
     }
 
@@ -68,17 +71,14 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    private void StartMovement(InputAction.CallbackContext ctx)
+    private void StartMovement()
     {
         if (DialogueManager.GetInstance().dialogueIsPlaying == false)
         {
             isWalking = true;
             character.SetIsWalking(true);
         }
-        else
-        {
 
-        }
     }
 
     private void CancelMovement()
@@ -107,6 +107,22 @@ public class PlayerBehaviour : MonoBehaviour
         isCrouched = false;
         character.SetIsCrouching(false);
     }*/
+
+    private void CycleMask()
+    {
+        if (DialogueManager.GetInstance().dialogueIsPlaying == false)
+        {
+            character.mask.tab_pressed = true;
+        }
+    }
+
+    private void CycleMaskCanceled()
+    {
+        if (DialogueManager.GetInstance().dialogueIsPlaying == false)
+        {
+            character.mask.tab_pressed = false;
+        }
+    }
     private void StartInteraction() { interactPressed = true; }
     private void EndInteraction() { interactPressed = false; }
 
