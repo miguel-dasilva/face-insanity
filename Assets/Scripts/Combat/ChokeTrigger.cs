@@ -78,6 +78,7 @@ public class ChokeTrigger : Trigger
     {
         if (chokeEnabled)
         {
+            enemyScript.damaged();
             enemyScript.hp -= chokeDamage;
             chokeEnabled = false;
             interactDismissed = true;

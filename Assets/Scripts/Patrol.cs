@@ -74,6 +74,8 @@ public class Patrol : MonoBehaviour
     public void damaged()
     {
         animator.SetTrigger("Damaged");
+        agent.isStopped = true;
+        StartCoroutine(reEnableEnemyMovement());
     }
     void Update()
     {
@@ -99,7 +101,6 @@ public class Patrol : MonoBehaviour
                     DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
                 }
             }
-
             if (playerSeen)
             {
                 if (distanceToPlayer > sight)
@@ -107,7 +108,6 @@ public class Patrol : MonoBehaviour
                     spotLight.color = Color.white;
                     playerSeen = false;
                     playerController.playerSeen = false;
-
                     agent.destination = points[destPoint].position;
                 }
                 else
@@ -115,7 +115,8 @@ public class Patrol : MonoBehaviour
                     if (distanceToPlayer <= attackRange)
                     {
                         animator.SetTrigger("Attack");
-                        enemyMovement = false;
+                        agent.isStopped = true;
+                        //enemyMovement = false;
                         isAttacking = true;
                         StartCoroutine(reEnableEnemyMovement());
                     }
@@ -151,8 +152,11 @@ public class Patrol : MonoBehaviour
             }
 
 
-            if (!agent.pathPending && agent.remainingDistance < 0.5f && enemyMovement)
+            if (!agent.pathPending && agent.remainingDistance < 0.5f)
             {
+                Debug.Log("reached one point");
+                agent.isStopped = true;
+                StartCoroutine(reEnableEnemyMovement());
                 GotoNextPoint();
             }
 
@@ -168,7 +172,8 @@ public class Patrol : MonoBehaviour
 
     private IEnumerator reEnableEnemyMovement()
     {
-        yield return new WaitForSecondsRealtime(5.0f);
+        yield return new WaitForSeconds(3);
+        agent.isStopped = false;
         enemyMovement = true;
     }
 }
