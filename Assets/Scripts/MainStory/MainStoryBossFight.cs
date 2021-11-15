@@ -40,11 +40,13 @@ public class MainStoryBossFight : MonoBehaviour
 
     void Start()
     {
-        panel_communicate_message.SetActive(false);
         gameOverImage.gameObject.SetActive(false);
         image.gameObject.SetActive(false);
         playerCharacter = FindObjectOfType<CharController>();
         boss = GameObject.FindGameObjectWithTag("Boss").GetComponent<Patrol>();
+        text.SetText("He must be around here somewhere. I should approach carefully.");
+        panel_communicate_message.SetActive(true);
+        StartCoroutine("waitForSec");
     }
 
     // Update is called once per frame
@@ -81,5 +83,10 @@ public class MainStoryBossFight : MonoBehaviour
                 SceneManager.LoadScene(0, LoadSceneMode.Single);
             }
         }
+    }
+    IEnumerator waitForSec()
+    {
+        yield return new WaitForSeconds(5);
+        panel_communicate_message.SetActive(false);
     }
 }
