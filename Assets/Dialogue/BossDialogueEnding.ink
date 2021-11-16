@@ -25,7 +25,8 @@ Killer: Say, couldn't you do me a little favour?
 *You're a murderer. You won't get any favours from me.
     ->NO
 === CRAZY ===
-Killer: Is it just me, is there got crazy in your eyes? No matter. It's a dog eat dog world. 
+Killer: Is it just me, or is there some crazy in your eyes? No matter...
+Killer: It's a dog eat dog world. 
 Killer: Today you were bigger than me. But tomorrow, you loose your fucking face. And I'll be there to see it.
 ->END
 === NO ===
