@@ -34,16 +34,16 @@ Detective: What was so special about her, then?
 Prisioner: Her sunny disposition...
 Detective: You know... It's just... I expected more from you. Such a careful, organised guy...
 Prisioner: ...
-Detective: And then you let all that blood, all that filth stain her pretty white dress. Her snot, her sweat...
+Detective: And then you let all that blood, all that filth stain her pretty white dress.
 Prisioner: Why do you care so much, Detective? Your partner was all too pleased when I confessed to a few extra murders.
-*I just want to get to the bottom of this.
+*Just doing my job.
     ->Decisive
 *I just find you intriguing, is all.
     ->Baiting
 *I don't know, something doesn't smell right.
     ->Instictive
 === Decisive ===
-Prisioner: The bottom of this? The bottom of this is simple. There is another killer. Find him. Investigate. You'll get nothing else from me.
+Prisioner: Your job?! Your job! Your job is to find him yourself. Investigate. You'll get nothing else from me.
 Prisioner: Except maybe this parting gift. Take this, Detective. And prove me wrong to think you such a fucking bore.
 ->END
 ===Baiting===
